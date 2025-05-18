@@ -1,0 +1,15 @@
+# Usa a imagem oficial do MySQL
+FROM mysql:8.0
+
+# Define variáveis de ambiente obrigatórias
+ENV MYSQL_ROOT_PASSWORD=rootpassword
+ENV MYSQL_DATABASE=routeFinder
+ENV MYSQL_USER=usuario
+ENV MYSQL_PASSWORD=senha123
+
+# Copia scripts SQL para inicialização, se houver
+# (opcional – coloque seus .sql em ./initdb dentro do mesmo diretório do Dockerfile)
+COPY ./initdb.sql /docker-entrypoint-initdb.d/
+
+# Expondo a porta padrão do MySQL
+EXPOSE 3306
