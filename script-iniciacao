@@ -1,0 +1,27 @@
+# Atualizar pacotes do sistema
+
+sudo apt update && sudo apt upgrade –y
+
+#BAIXAR DOCKER 
+
+sudo apt install docker.io
+
+#habilitar serviço docker 
+
+sudo systemctl start docker
+
+#habilita o serviço docker para ser iniciado junto do sistema 
+
+sudo systemctl enable docker
+
+#Criar network docker 
+
+docker network create rede-ec2
+
+#CRIAR IMAGEM e Container NODE 
+
+sudo docker build -f Dockerfile-Node -t imagem-node:v1 . && sudo docker run -d --name ContainerSite --network rede-ec2 -p 80:8080 imagem-node:v1
+
+#CRIAR IMAGEM E CONTAINER SQL  
+
+sudo docker build -f Dockerfile-mysql -t imagem-sql:v1 . && sudo docker run -d --name ContainerSql --network rede-ec2 -p 3306:3306 imagem-sql:v1
