@@ -16,6 +16,29 @@ CNPJ CHAR(14)
 
 
 
+
+CREATE TABLE position (
+
+id_position INT AUTO_INCREMENT PRIMARY KEY,
+
+name VARCHAR(45),
+
+description VARCHAR(45)
+
+);
+
+
+CREATE TABLE access_level (
+
+id_access_level INT AUTO_INCREMENT PRIMARY KEY,
+
+name VARCHAR(45),
+
+description VARCHAR(45)
+
+);
+
+
 CREATE TABLE user (
 
 id_user INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,8 +55,56 @@ created_at DATETIME,
 
 fk_company INT,
 
-FOREIGN KEY (fk_company) REFERENCES company(id_company)
+FOREIGN KEY (fk_company) REFERENCES company(id_company),
 
+fk_position INT,
+
+FOREIGN KEY (fk_position) REFERENCES company(id_position),
+fk_access_level,
+
+FOREIGN KEY (fk_access_level) REFERENCES company(id_access_level)
+
+);
+
+
+
+
+CREATE TABLE category (
+
+id_category INT AUTO_INCREMENT PRIMARY KEY,
+
+type VARCHAR(45),
+
+description VARCHAR(255)
+
+);
+
+
+
+
+CREATE TABLE alert (
+
+id_alert INT AUTO_INCREMENT PRIMARY KEY,
+
+name_alert VARCHAR(45),
+
+description VARCHAR(45),
+
+fk_user INT,
+
+FOREIGN KEY (fk_user) REFERENCES user(id_user)
+
+);
+
+
+CREATE TABLE log (
+id_log INT AUTO_INCREMENT PRIMARY KEY,
+date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+description VARCHAR(200),
+fk_alert,
+FOREIGN KEY (fk_alert) REFERENCES log(id_alert),
+fk_category,
+FOREIGN KEY (fk_category) REFERENCES log(id_category)
 );
 
 CREATE TABLE passage (
@@ -66,25 +137,4 @@ date_time DATETIME,
 jam_size INT,
 fk_segment INT,
 FOREIGN KEY (fk_segment) REFERENCES segment(id_segment)
-);
-
-CREATE TABLE log (
-id_log INT AUTO_INCREMENT PRIMARY KEY,
-category VARCHAR(45),
-date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-description VARCHAR(200)
-);
-
-
-
-CREATE TABLE alert (
-
-id_alert INT AUTO_INCREMENT PRIMARY KEY,
-name_alert VARCHAR(45),
-description VARCHAR(45),
-fk_user INT,
-fk_log INT,
-FOREIGN KEY (fk_user) REFERENCES user(id_user),
-FOREIGN KEY (fk_log) REFERENCES log(id_log)
-
 );
