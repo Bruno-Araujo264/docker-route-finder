@@ -1,18 +1,18 @@
 # Usa uma imagem base com Java (OpenJDK 17, por exemplo)
-FROM openjdk:latest
+FROM openjdk:21-jdk-slim
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
 #Setando variáveis de ambiente
-ENV DB_HOST=localhost \
+ENV DB_HOST=ContainerSql \
     DB_PORT=3306 \
     DB_NAME=routeFinder \
     DB_USER=root \
     DB_PASSWORD=rootpassword \
-    S3_BUCKET=base-dados-route-finder
+    S3_BUCKET=bucket-s3-pi
 # Copia o arquivo .jar para dentro do container
-COPY leitura_arquivos_projeto-1.0-SNAPSHOT.jar app.jar
+COPY leitura_arquivos_projeto-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 # Comando para rodar o app
 ENTRYPOINT ["java", "-jar", "app.jar"]
