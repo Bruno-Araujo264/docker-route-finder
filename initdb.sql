@@ -17,9 +17,9 @@ CNPJ CHAR(14)
 
 
 
-CREATE TABLE position (
+CREATE TABLE role (
 
-id_position INT AUTO_INCREMENT PRIMARY KEY,
+id_role INT AUTO_INCREMENT PRIMARY KEY,
 
 name VARCHAR(45),
 
@@ -54,15 +54,14 @@ phone VARCHAR(45),
 created_at DATETIME,
 
 fk_company INT,
+fk_role INT,
+fk_access_level INT,
 
 FOREIGN KEY (fk_company) REFERENCES company(id_company),
 
-fk_position INT,
-
-FOREIGN KEY (fk_position) REFERENCES company(id_position),
-fk_access_level,
-
-FOREIGN KEY (fk_access_level) REFERENCES company(id_access_level)
+FOREIGN KEY (fk_role) REFERENCES role(id_role),
+  
+FOREIGN KEY (fk_access_level) REFERENCES access_level(id_access_level)
 
 );
 
@@ -102,9 +101,9 @@ id_log INT AUTO_INCREMENT PRIMARY KEY,
 date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 description VARCHAR(200),
 fk_alert,
-FOREIGN KEY (fk_alert) REFERENCES log(id_alert),
 fk_category,
-FOREIGN KEY (fk_category) REFERENCES log(id_category)
+FOREIGN KEY (fk_alert) REFERENCES alert(id_alert),
+FOREIGN KEY (fk_category) REFERENCES category(id_category)
 );
 
 CREATE TABLE passage (
