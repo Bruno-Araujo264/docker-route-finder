@@ -17,9 +17,9 @@ CNPJ CHAR(14)
 
 
 
-CREATE TABLE role (
+CREATE TABLE position (
 
-id_role INT AUTO_INCREMENT PRIMARY KEY,
+id_position INT AUTO_INCREMENT PRIMARY KEY,
 
 name VARCHAR(45),
 
@@ -40,31 +40,19 @@ description VARCHAR(45)
 
 
 CREATE TABLE user (
-
 id_user INT AUTO_INCREMENT PRIMARY KEY,
-
 name_user VARCHAR(45),
-
 password VARCHAR(45),
-
 email VARCHAR(45),
-
 phone VARCHAR(45),
-
 created_at DATETIME,
-
 fk_company INT,
-fk_role INT,
-fk_access_level INT,
-
 FOREIGN KEY (fk_company) REFERENCES company(id_company),
-
-FOREIGN KEY (fk_role) REFERENCES role(id_role),
-  
+fk_position INT,
+FOREIGN KEY (fk_position) REFERENCES routeFinder.position(id_position),
+fk_access_level INT,
 FOREIGN KEY (fk_access_level) REFERENCES access_level(id_access_level)
-
 );
-
 
 
 
@@ -101,8 +89,8 @@ id_log INT AUTO_INCREMENT PRIMARY KEY,
 date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 description VARCHAR(200),
 fk_alert INT,
-fk_category INT,
 FOREIGN KEY (fk_alert) REFERENCES alert(id_alert),
+fk_category INT,
 FOREIGN KEY (fk_category) REFERENCES category(id_category)
 );
 
