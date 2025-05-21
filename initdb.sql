@@ -100,8 +100,8 @@ CREATE TABLE log (
 id_log INT AUTO_INCREMENT PRIMARY KEY,
 date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 description VARCHAR(200),
-fk_alert,
-fk_category,
+fk_alert INT,
+fk_category INT,
 FOREIGN KEY (fk_alert) REFERENCES alert(id_alert),
 FOREIGN KEY (fk_category) REFERENCES category(id_category)
 );
