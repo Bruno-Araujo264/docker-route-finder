@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  node:
+    container_name: ContainerNode
+    image: node:18
+    restart: always
+    working_dir: /usr/src/app/RouteFInder/Site
+    volumes:
+      - .:/usr/src/app
+    command: sh -c "npm install && npm start"
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+    environment:
+      NODE_ENV: development
+    networks:
+      - rede-ec2
+
+  mysql:
+    container_name: ContainerSql
+    image: mysql:8.0
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+       MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: routeFinder
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: senha123
+    volumes:
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - rede-ec2
+
+volumes:
+  mysql_data:
+
+networks:
+  rede-ec2:
+    driver: bridge
